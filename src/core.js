@@ -30,7 +30,7 @@ export function calculateDiscount(price, discountCode) {
 export function validateUserInput(username, age) {
   let errors = [];
 
-  if (typeof username !== 'string' || username.length < 3) {
+  if (typeof username !== 'string' || username.length < 3 || username.length > 255) {
     errors.push('Invalid username');
   }
 
