@@ -1,5 +1,5 @@
 import { it, expect, describe } from "vitest";
-import { getCoupons, calculateDiscount, validateUserInput, isPriceInRange, isValidUsername, canDrive } from "../src/core";
+import { getCoupons, calculateDiscount, validateUserInput, isPriceInRange, isValidUsername, canDrive, fetchData } from "../src/core";
 
 describe("getCoupons", () => {
   it("should return an array of coupons", () => {
@@ -140,3 +140,23 @@ describe("canDrive", () => {
     expect(canDrive(age, country)).toBe(result);
   }) 
 });
+
+describe('fetchData', () => {
+	it('should return a promise that will resolve to an array of numbers ', () => { 
+		fetchData().then((result) => {
+			expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBeGreaterThan(0);
+		})
+	});	
+
+  it('should return a promise that will resolve to an array of numbers ', async () => { 
+    try {
+      const result = await fetchData(); 
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBeGreaterThan(0);
+    } catch (error) {
+      expect(error).toHaveProperty('reason');
+      expect(error.reason).toMatch(/fail/i);
+    }
+  });
+})
