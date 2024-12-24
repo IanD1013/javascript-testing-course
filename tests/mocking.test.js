@@ -1,10 +1,12 @@
 import { vi, it, expect, describe } from 'vitest';
-import { getPriceInCurrency, getShippingInfo } from '../src/mocking';
+import { getPriceInCurrency, getShippingInfo, renderPage } from '../src/mocking';
 import { getExchangeRate } from '../src/libs/currency';
 import { getShippingQuote } from '../src/libs/shipping';
+import { trackPageView } from '../src/libs/analytics';
 
 vi.mock('../src/libs/currency');
 vi.mock('../src/libs/shipping');
+vi.mock('../src/libs/analytics');
 
 describe('mocking - test suite', () => {
     it('test case', () => {
@@ -40,6 +42,7 @@ describe('mocking exercise - test suite', () => {
     })
 });
 
+// Lesson: Mocking modules
 describe('getPriceInCurrency', () => {
     it('should return price in target currency', () => {
         vi.mocked(getExchangeRate).mockReturnValue(1.5);
@@ -50,6 +53,7 @@ describe('getPriceInCurrency', () => {
     })
 });
 
+// Exercise: Mocking modules
 describe("getShippingInfo", () => {
     it("should return shipping unavailable if quote cannot be fetched", () => {
       vi.mocked(getShippingQuote).mockReturnValue(null);
@@ -67,5 +71,21 @@ describe("getShippingInfo", () => {
     //   expect(result).toMatch("$10");
     //   expect(result).toMatch(/2 days/i);
       expect(result).toMatch(/shipping cost: \$10 \(2 days\)/i);
+    });
+});
+
+// Lesson: Interaction testing
+describe("renderPage", () => {
+    it("should return correct content", async () => {
+      const result = await renderPage();
+  
+      expect(result).toMatch(/content/i);
+    });
+  
+    // test there is a call to trackPageView()
+    it("should call analytics", async () => {
+      await renderPage();
+  
+      expect(trackPageView).toHaveBeenCalledWith("/home");
     });
 });
