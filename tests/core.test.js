@@ -1,5 +1,5 @@
 import { it, expect, describe, beforeEach, beforeAll, afterEach, afterAll } from "vitest";
-import { getCoupons, calculateDiscount, validateUserInput, isPriceInRange, isValidUsername, canDrive, fetchData } from "../src/core";
+import { getCoupons, calculateDiscount, validateUserInput, isPriceInRange, isValidUsername, canDrive, fetchData, Stack } from "../src/core";
 
 describe("getCoupons", () => {
   it("should return an array of coupons", () => {
@@ -169,4 +169,34 @@ describe('setup and teardown test suite', () => {
 	
 	it('test case 1', () => {})
 	it('test case 2', () => {})
+})
+
+describe('Stack', () => {
+	let stack; 
+	
+	beforeEach(() => {
+		stack = new Stack();
+	})
+	
+	afterEach(() => {})
+	afterAll(() => {})
+	
+	it('push should add an item to the stack', () => {
+		stack.push(1);
+		expect(stack.size()).toBe(1); 
+	})
+	
+	it('pop should remove and return the top item from the stack', () => {
+		stack.push(1);
+		stack.push(2);
+		
+		const poppedItem = stack.pop();
+		
+		expect(poppedItem).toBe(2);
+		expect(stack.size()).toBe(1);
+	})
+	
+	it('pop should throw an error if stack is empty', () => {
+		expect(() => stack.pop()).toThrow(/empty/i); 
+	})
 })
