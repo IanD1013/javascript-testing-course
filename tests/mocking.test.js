@@ -15,4 +15,21 @@ describe('mocking - test suite', () => {
         expect(greet).toHaveBeenCalledOnce();
         expect(greet).toHaveBeenCalledWith('Mosh');
     })
+});
+
+describe('mocking exercise - test suite', () => {
+    it('test case', () => {
+        // Create a mock for the following function: sendText(message) {}
+        const sendText = vi.fn();
+        sendText.mockReturnValue('ok');
+
+        // Call the mock function 
+        const result = sendText('message');
+
+        // Assert that the mock function is called
+        expect(sendText).toHaveBeenCalledWith('message');
+
+        // Assert that the result is OK
+        expect(result).toBe('ok');
+    })
 })
