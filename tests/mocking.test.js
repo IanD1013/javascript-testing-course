@@ -1,5 +1,5 @@
 import { vi, it, expect, describe, beforeEach } from 'vitest';
-import { getPriceInCurrency, getShippingInfo, isOnline, login, renderPage, signUp, submitOrder } from '../src/mocking';
+import { getDiscount, getPriceInCurrency, getShippingInfo, isOnline, login, renderPage, signUp, submitOrder } from '../src/mocking';
 import { getExchangeRate } from '../src/libs/currency';
 import { getShippingQuote } from '../src/libs/shipping';
 import { trackPageView } from '../src/libs/analytics';
@@ -176,6 +176,7 @@ describe("login", () => {
     });
 });
 
+// Lesson: Mocking dates
 describe('isOnline', () => {
   it('should return false if current hour is outside opening hours', () => {
     vi.setSystemTime(new Date('2024-01-01 07:59'));
@@ -192,4 +193,20 @@ describe('isOnline', () => {
     vi.setSystemTime(new Date('2024-01-01 19:59'));
     expect(isOnline()).toBe(true);
   });
-})
+});
+
+// Exercise: Mocking dates
+describe('getDiscount', () => {
+  it('should return 0.2 on Christmas day', () => {
+    vi.setSystemTime(new Date('2024-12-25 00:01'));
+    expect(getDiscount()).toBe(0.2);
+
+    vi.setSystemTime(new Date('2024-12-25 23:59'));
+    expect(getDiscount()).toBe(0.2);
+  });
+
+  it('should return 0 on any other day', () => {
+    vi.setSystemTime(new Date('2024-12-26 00:01'));
+    expect(getDiscount()).toBe(0);
+  });
+});
