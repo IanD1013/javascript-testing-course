@@ -1,4 +1,4 @@
-import { vi, it, expect, describe, beforeEach } from "vitest";
+import { vi, it, expect, describe } from "vitest";
 import {
   getDiscount,
   getPriceInCurrency,
@@ -38,7 +38,6 @@ describe("mocking - test suite", () => {
     // 3
     greet.mockImplementation((name) => `Hello ${name}`); // greet('John') => 'Hello John'
 
-    const result = greet("Mosh");
     expect(greet).toHaveBeenCalled();
     expect(greet).toHaveBeenCalledOnce();
     expect(greet).toHaveBeenCalledWith("Mosh");
