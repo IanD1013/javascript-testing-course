@@ -38,6 +38,7 @@ describe("mocking - test suite", () => {
     // 3
     greet.mockImplementation((name) => `Hello ${name}`); // greet('John') => 'Hello John'
 
+    greet("Mosh");
     expect(greet).toHaveBeenCalled();
     expect(greet).toHaveBeenCalledOnce();
     expect(greet).toHaveBeenCalledWith("Mosh");
